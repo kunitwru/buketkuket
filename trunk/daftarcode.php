@@ -1,82 +1,62 @@
 <?php
+include"koneksi.php";
+//require_once 'db_bk.php';
 
-require_once 'koneksi.php';
-
-
-
-
-$nama		= $_REQUEST ['nama'];
-$username	= $_REQUEST['username'];
-$alamat		= $_REQUEST['alamat'];
-$no_telepon	= $_REQUEST['notelp'];
-$password	= $_REQUEST['password'];
-$foto_profil		= null;
-$pilihan	= $_REQUEST['pilihan'];
-
-$set = true;
-
-
+$nama 		= $_POST['nama'];
+$username 	= $_POST['username'];
+$alamat 	= $_POST['alamat'];
+$no_telp 	= $_POST['no_telp'];
+$akun 		= $_POST['akun'];
+$password 	= $_POST['password'];
+$foto_profil= null;
+$set 		= true;
 
 $allowed_types=array(
-    'gif',
-    'jpeg',
-    'png',
+    'image/gif',
+    'image/jpeg',
+    'image/png'
 );
 
-if (in_array($_FILES["picture"]["type"], $allowed_types) && 
-            ($_FILES["picture"]["size"] < 500000)) {
+if (in_array($_FILES["foto_profil"]["type"], $allowed_types) && 
+            ($_FILES["foto_profil"]["size"] < 500000000)) {
+
+		if($_FILES["foto_profil"]["error"] > 0) {
+			echo '<div class="alert alert-danger">Error<button class="close" data-dismiss="alert">&times;</button></div>';
+			$set = false;
+			}
 			
-	if($_FILES["picture"]["error"] > 0) {
-		//echo '<div class="alert alert-danger">Error<button class="close" data-dismiss="alert">&times;</button></div>';
-		$set = false;
-		}
-		
-	else {
-		if (file_exists("picture/" . $_FILES["picture"]["name"])) {
-			//echo '<div class="alert alert-warning">File sudah ada<button class="close" data-dismiss="alert">&times;</button></div>';
-			move_uploaded_file($_FILES["picture"]["tmp_name"], "picture2/" . $_FILES["picture"]["name"]);
-			$foto_profil = "picture2/" . $_FILES["picture"]["name"];
-		}
 		else {
-			move_uploaded_file($_FILES["picture"]["tmp_name"], "picture/" . $_FILES["picture"]["name"]);
-			$foto_profil = "picture/" . $_FILES["picture"]["name"];
+			if (file_exists("foto_profil/" . $_FILES["foto_profil"]["name"])) {
+				echo '<div class="alert alert-warning">File sudah ada<button class="close" data-dismiss="alert">&times;</button></div>';
+				move_uploaded_file($_FILES["foto_profil"]["tmp_name"], "foto_profil2/" . $_FILES["foto_profil"]["name"]);
+				$foto_profil = "foto_profil/" . $_FILES["foto_profil"]["name"];
+			}
+			else {
+				move_uploaded_file($_FILES["foto_profil"]["tmp_name"], "foto_profil/" . $_FILES["foto_profil"]["name"]);
+				$foto_profil = "foto_profil/" . $_FILES["foto_profil"]["name"];
+			}
 		}
 	}
-}
-
-$db = new db_bk($host,$user,$pass,$dbnm);
-$db -> _connect();
-//cek email sudah ada apa belum 
-$sql = 'select * from edit_profil where username="'.$username.'"';
-$query = mysql_query( $sql );
-$row = mysql_fetch_row( $query );
-
 	
-if( !empty( $row[1] ) ){
-	//echo 'EMAIL SUDAH TERDAFTAR<br>';
-	//$error++;
-	$set = false;
-}
-
-if($set) {	
-	$data_user = array(
-		'nama' => $nama,
-		'username' => $username,
-		'alamat' => $alamat,
-		'notelp' => $no_telepon,
-		'password' => $password,
-		'foto_profil' => $foto_profil,
-		'pilihan' => $pilihan
+	if(!empty ($username)){
+	
+		$sql = mysql_query("INSERT INTO edit_profil VALUES('$nama','$username','','$alamat','$no_telp','$password','$foto_profil','$akun',now())");
 		
-	);
-	
-	$db->set_data($data_user);
-	header("location:home.php?success");
-}
-
-else {
-	header("location:signup.php?failed");
-	//echo '<div class="alert alert-danger">File tidak memenuhi syarat<button class="close" data-dismiss="alert">&times;</button></div>';
-	$set = false;
-}
-?>
+		//$sql = mysql_query("INSERT INTO edit_profil VALUES('".$nama."','".$username."','".$alamat"','".$no_telp."','".$password."','".$foto_profil."','".$akun."',now())");
+		
+		if($sql){
+		//echo "katakata";
+		//header('Location:home.php');
+		?>
+		<script language ="JavaScript">
+		document.location='home.php';
+		alert('anda berhasil melakukan daftar akun');
+		</script>
+		<?php
+			//header('Location:home.php');
+	}
+	}
+	//else {
+	//header('Location:home.php?failed');
+	//}
+	?>
