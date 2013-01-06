@@ -41,6 +41,11 @@ echo "<p>Alamat : $alamat</p>";
 echo "<p>Email : $email</p>";
 echo "<p>Buku : $data[nama_buku]</p>";
 echo "<p>Harga : $jumlah x Rp. $data[harga] = Rp. $total</p>";
+
+$stock = mysql_fetch_array(mysql_query("SELECT(`buku`.`jumlah` - `order`.`jumlah_order`) FROM `buku`,`order` WHERE `buku`.`id_buku`='$buku' AND `order`.`id_buku`='$buku'"));
+$stock_baru=$stock[0];
+mysql_query("UPDATE buku SET jumlah = '$stock_baru' WHERE `buku`.`id_buku`='$buku'");
+
 ?>
 </body>
 </html>
