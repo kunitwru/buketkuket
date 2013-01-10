@@ -6,12 +6,12 @@
 <body>
 			<div class="navbar">
 			<div class="navbar-inner">
-				<a class="brand" href="#">Home</a>
+				<a class="brand" href="home.php">Home</a>
 				<ul class="nav">
 					<li class="active"><a href="#">test</a></li>
 					<li><a href="bukusd.php">Buku SD</a></li>
-					<li><a href="#">Buku SMP</a></li>
-					<li><a href="#">Buku SMA</a></li>
+					<li><a href="bukusmp.php">Buku SMP</a></li>
+					<li><a href="bukusma.php">Buku SMA</a></li>
 					<li><a href="#"></a></li>
 					<li><a href="#"></a></li>
 					<li><a href="#"></a></li>
