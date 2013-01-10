@@ -5,7 +5,7 @@
 </head>
 <div class="navbar">
   <div class="navbar-inner">
-    <a class="brand" href="#">Home</a>
+    <a class="brand" href="login.php">Home</a>
     <ul class="nav">
       <li class="active"><a href="#">test</a></li>
       <li><a href="#">Buku SD</a></li>
