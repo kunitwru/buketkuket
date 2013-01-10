@@ -8,10 +8,10 @@
 			<div class="navbar-inner">
 				<a class="brand" href="#">Home</a>
 				<ul class="nav">
-					<li class="active"><a href="#">test</a></li>
+					<!--<li class="active"><a href="#">test</a></li>-->
 					<li><a href="bukusd.php">Buku SD</a></li>
-					<li><a href="#">Buku SMP</a></li>
-					<li><a href="#">Buku SMA</a></li>
+					<li><a href="bukusmp.php">Buku SMP</a></li>
+					<li><a href="bukusma.php">Buku SMA</a></li>
 					<li><a href="#"></a></li>
 					<li><a href="#"></a></li>
 					<li><a href="#"></a></li>
@@ -59,13 +59,7 @@
 		<form id="form1" name="form1" method="post" action="">
 	<table class="table-bordered" width="1000" border="1">
 		
-    <!--<tr>
-      
-      <td width="148"><div align="center">No</div></td>
-      <td width="122"><div align="center">Nama Buku</div></td>
-	  <td width="148"><div align="center">Jumlah</div></td>
-	  <div class="btn-group pull-right" >
-	</tr>-->
+   
 							
 	<?php while($kolom=mysql_fetch_array($sql)){
     ?>
